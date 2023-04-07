@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class LecturerData extends ObjData<Lecturer> {
+public class LecturerData extends ObjData<Lecturer> implements IPeopleData<Lecturer> {
 
     public ArrayList<Lecturer> findByName(String name) {
         ArrayList<Lecturer> lecturers = new ArrayList<>();

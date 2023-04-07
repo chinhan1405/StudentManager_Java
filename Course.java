@@ -52,7 +52,7 @@ public class Course {
         return finished;
     }
 
-    public void finishCourse(boolean finished) {
+    public void finishCourse() {
         this.finished = true;
         this.lecturer.getJoinedCourses().remove(this);
         this.lecturer.getFinishedCourses().add(this);

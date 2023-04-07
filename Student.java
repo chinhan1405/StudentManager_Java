@@ -49,6 +49,10 @@ public class Student extends Person {
         }
     }
 
+    public boolean isInCourse(Course course) {
+        return joinedCourses.contains(course);
+    }
+
     public void addGrade(Course course, float point, float coefficient) {
         if (course.getJoinedStudents().contains(this))
             this.getGrade(course).addPoint(point, coefficient);
