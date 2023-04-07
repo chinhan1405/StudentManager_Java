@@ -31,4 +31,13 @@ public class LecturerData extends ObjData<Lecturer> {
         }
         return lecturers;
     }
+
+    public ArrayList<Lecturer> findByEmail(Student student) {
+        ArrayList<Lecturer> lecturers = new ArrayList<>();
+        for (Course course : student.getJoinedCourses()) {
+            if (!lecturers.contains(course.getLecturer()))
+                lecturers.add(course.getLecturer());
+        }
+        return lecturers;
+    }
 }

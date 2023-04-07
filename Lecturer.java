@@ -24,6 +24,9 @@ public class Lecturer extends Person{
     }
 
     public void joinCourse(Course course) {
-        this.joinedCourses.add(course);
+        if (!this.joinedCourses.contains(course)) {
+            this.joinedCourses.add(course);
+            course.setLecturer(this);
+        }
     }
 }

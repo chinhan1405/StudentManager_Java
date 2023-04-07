@@ -25,7 +25,7 @@ public class Grade {
         this.points.add(new Pair(point, coefficient));
     }
 
-    public void removePoint(int index) {
+    public void deletePoint(int index) {
         this.points.remove(index);
     }
 
@@ -36,15 +36,6 @@ public class Grade {
             sumCoef += pair.coefficient;
         }
         return sum/sumCoef;
-    }
-
-    public static void main(String[] args) {
-        Course course = new Course("12", "123", "131231231414123");
-        Grade grade = new Grade(course);
-        grade.addPoint(8.0f, 0.3f);
-        grade.addPoint(7f, 0.7f);
-        grade.addPoint(5f, 0.2f);
-        System.out.print(grade.average());
     }
 }
 

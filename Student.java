@@ -21,6 +21,10 @@ public class Student extends Person {
         return grades;
     }
 
+    public Grade getGrade(Course course) {
+        return this.grades.get(course);
+    }
+
     public ArrayList<Course> getJoinedCourses() {
         return joinedCourses;
     }
@@ -30,29 +34,28 @@ public class Student extends Person {
     }
 
     public void joinCourse(Course course) {
-        this.joinedCourses.add(course);
-        course.getJoinedStudents().add(this);
-        this.grades.put(course, new Grade(course));
+        if (!course.getJoinedStudents().contains(this)) {
+            this.joinedCourses.add(course);
+            course.getJoinedStudents().add(this);
+            this.grades.put(course, new Grade(course));
+        }
     }
 
     public void exitCourse(Course course) {
-        this.joinedCourses.remove(course);
-        course.getJoinedStudents().remove(this);
-        grades.remove(course);
+        if (course.getJoinedStudents().contains(this)) {
+            this.joinedCourses.remove(course);
+            course.getJoinedStudents().remove(this);
+            grades.remove(course);
+        }
     }
 
-    public static void main(String[] args) {
-        Course course = new Course("123", "233dfak", "lsflksdfjlksflsjf");
-        Student student = new Student("asd", "aa", 123, "dad");
-        Lecturer lecturer = new Lecturer("sdf", "dsfa", 123, "dalkd");
-        course.setLecturer(lecturer);
-        student.joinCourse(course);
-        student.joinCourse(course);
-        student.joinCourse(course);
-        student.joinCourse(course);
-        student.exitCourse(course);
-        for (Student st : course.getJoinedStudents()) {
-            System.out.println(st.getName() + "  " + st.getEmail());
-        }
+    public void addGrade(Course course, float point, float coefficient) {
+        if (course.getJoinedStudents().contains(this))
+            this.getGrade(course).addPoint(point, coefficient);
+    }
+
+    public void deleteGrade(Course course, int index) {
+        if (course.getJoinedStudents().contains(this))
+            this.getGrade(course).deletePoint(index);
     }
 }
