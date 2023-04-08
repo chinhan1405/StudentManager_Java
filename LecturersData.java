@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class LecturerData extends ObjData<Lecturer> implements IPeopleData<Lecturer> {
+public class LecturersData extends ObjData<Lecturer> implements IPeopleData<Lecturer> {
 
     public ArrayList<Lecturer> findByName(String name) {
         ArrayList<Lecturer> lecturers = new ArrayList<>();
@@ -32,7 +32,7 @@ public class LecturerData extends ObjData<Lecturer> implements IPeopleData<Lectu
         return lecturers;
     }
 
-    public ArrayList<Lecturer> findByEmail(Student student) {
+    public ArrayList<Lecturer> findByStudent(Student student) {
         ArrayList<Lecturer> lecturers = new ArrayList<>();
         for (Course course : student.getJoinedCourses()) {
             if (!lecturers.contains(course.getLecturer()))

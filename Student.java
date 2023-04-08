@@ -62,4 +62,13 @@ public class Student extends Person {
         if (course.getJoinedStudents().contains(this))
             this.getGrade(course).deletePoint(index);
     }
+
+    public float getAllAverage() {
+        if (finishedCourses.size()==0) return 0;
+        float sum = 0f;
+        for (Course course : finishedCourses) {
+            sum += grades.get(course).average();
+        }
+        return sum / (float) finishedCourses.size();
+    }
 }

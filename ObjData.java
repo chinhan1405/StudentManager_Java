@@ -9,6 +9,14 @@ public abstract class ObjData<T> {
         return data;
     }
 
+    public ArrayList<T> getDataAsList() {
+        ArrayList<T> objs = new ArrayList<>();
+        for (String key : data.keySet()) {
+            objs.add(data.get(key));
+        }
+        return objs;
+    }
+ 
     public T get(String id) {
         return getData().get(id);
     }
