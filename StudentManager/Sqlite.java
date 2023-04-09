@@ -233,7 +233,9 @@ public class Sqlite {
                     String description = result.getString("description");
                     String lecturerId = result.getString("lecturerId");
                     Course newCourse = new Course(id, name, description);
-                    newCourse.setLecturer(lecturers.get(lecturerId));
+                    if (lecturers.contain(lecturerId)) {
+                        newCourse.setLecturer(lecturers.get(lecturerId));
+                    }
                     courses.add(id, newCourse);
                 }
             }

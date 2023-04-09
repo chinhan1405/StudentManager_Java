@@ -47,6 +47,7 @@ public class Course {
 
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
+        lecturer.getJoinedCourses().add(this);
     }
 
     public boolean isFinished() {

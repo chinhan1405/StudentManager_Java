@@ -343,40 +343,134 @@ public class StudentManagerInterface {
         return new Object[0][4];
     }
 
-    public ArrayList<Course> getAllCourses() {
-        return courses.getDataAsList();
+    public Object[][] getAllCourses() {
+        ArrayList<Course> temp = courses.getDataAsList();
+        Object[][] dataArray = new Object[temp.size()][5];
+        for (int i=0; i<temp.size(); i++) {
+            dataArray[i][0] = temp.get(i).getId();
+            dataArray[i][1] = temp.get(i).getName();
+            dataArray[i][2] = temp.get(i).getDescription();
+            Lecturer lecturer = temp.get(i).getLecturer();
+            if (lecturer == null) {
+                dataArray[i][3] = "";
+            }
+            else {
+                dataArray[i][3] = lecturer.getId();
+            }
+            dataArray[i][4] = temp.get(i).isFinished();
+        }
+        return dataArray;
     }
 
-    public ArrayList<Course> findCourseByName(String name) {
-        return courses.findByName(name);
+    public Object[][] findCourseByName(String name) {
+        ArrayList<Course> temp = courses.findByName(name);
+        Object[][] dataArray = new Object[temp.size()][5];
+        for (int i=0; i<temp.size(); i++) {
+            dataArray[i][0] = temp.get(i).getId();
+            dataArray[i][1] = temp.get(i).getName();
+            dataArray[i][2] = temp.get(i).getDescription();
+            Lecturer lecturer = temp.get(i).getLecturer();
+            if (lecturer == null) {
+                dataArray[i][3] = "";
+            }
+            else {
+                dataArray[i][3] = lecturer.getId();
+            }
+            dataArray[i][4] = temp.get(i).isFinished();
+        }
+        return dataArray;
     }
 
-    public ArrayList<Course> findCourseByLecturer(String lecturerId) {
+    public Object[][] findCourseByLecturer(String lecturerId) {
         if (lecturers.contain(lecturerId)) {
-            return courses.findByLecturer(lecturers.get(lecturerId));
+            ArrayList<Course> temp = courses.findByLecturer(lecturers.get(lecturerId));
+            Object[][] dataArray = new Object[temp.size()][5];
+            for (int i=0; i<temp.size(); i++) {
+                dataArray[i][0] = temp.get(i).getId();
+                dataArray[i][1] = temp.get(i).getName();
+                dataArray[i][2] = temp.get(i).getDescription();
+                Lecturer lecturer = temp.get(i).getLecturer();
+                if (lecturer == null) {
+                    dataArray[i][3] = "";
+                }
+                else {
+                    dataArray[i][3] = lecturer.getId();
+                }
+                dataArray[i][4] = temp.get(i).isFinished();
+            }
+            return dataArray;
         }
-        return new ArrayList<>();
+        return new Object[0][5];
     }
 
-    public Student getStudent(String id) {
-        if (students.contain(id)) {
-            return students.get(id);
+    public Object[][] findCourseByStudent(String studentId) {
+        if (students.contain(studentId)) {
+            ArrayList<Course> temp = students.get(studentId).getAllCourse();
+            Object[][] dataArray = new Object[temp.size()][5];
+            for (int i=0; i<temp.size(); i++) {
+                dataArray[i][0] = temp.get(i).getId();
+                dataArray[i][1] = temp.get(i).getName();
+                dataArray[i][2] = temp.get(i).getDescription();
+                Lecturer lecturer = temp.get(i).getLecturer();
+                if (lecturer == null) {
+                    dataArray[i][3] = "";
+                }
+                else {
+                    dataArray[i][3] = lecturer.getId();
+                }
+                dataArray[i][4] = temp.get(i).isFinished();
+            }
+            return dataArray;
         }
-        return null;
+        return new Object[0][5];
     }
 
-    public Lecturer getLecturer(String id) {
-        if (lecturers.contain(id)) {
-            return lecturers.get(id);
+    public Object[][] getAllEnrolledCourses() {
+        ArrayList<Student> studentsTemp = new ArrayList<>();
+        ArrayList<Course> coursesTemp = new ArrayList<>();
+        for (Student student : students.getDataAsList()) {
+            for (Course course : student.getAllCourse()) {
+                studentsTemp.add(student);
+                coursesTemp.add(course);
+            }
         }
-        return null;
+        Object[][] dataArray = new Object[coursesTemp.size()][3];
+        for (int i=0; i<coursesTemp.size(); i++) {
+            dataArray[i][0] = studentsTemp.get(i).getId();
+            dataArray[i][1] = coursesTemp.get(i).getId();
+            dataArray[i][2] = coursesTemp.get(i).isFinished();
+        }
+        return dataArray;
     }
 
-    public Course getCourse(String id) {
-        if (courses.contain(id)) {
-            return courses.get(id);
+    public Object[][] findEnrolledCoursesByStudent(String studentId) {
+        if (students.contain(studentId)) {
+            Student student = students.get(studentId);
+            ArrayList<Course> coursesTemp = student.getAllCourse();
+            Object[][] dataArray = new Object[coursesTemp.size()][3];
+            for (int i=0; i<coursesTemp.size(); i++) {
+                dataArray[i][0] = student.getId();
+                dataArray[i][1] = coursesTemp.get(i).getId();
+                dataArray[i][2] = coursesTemp.get(i).isFinished();
+            }
+            return dataArray;
         }
-        return null;
+        return new Object[0][3];
+    }
+
+    public Object[][] findEnrolledCoursesByCourse(String courseId) {
+        if (courses.contain(courseId)) {
+            Course course = courses.get(courseId);
+            ArrayList<Student> studentsTemp = course.getJoinedStudents();
+            Object[][] dataArray = new Object[studentsTemp.size()][3];
+            for (int i=0; i<studentsTemp.size(); i++) {
+                dataArray[i][0] = studentsTemp.get(i).getId();
+                dataArray[i][1] = course.getId();
+                dataArray[i][2] = course.isFinished();
+            }
+            return dataArray;
+        }
+        return new Object[0][3];
     }
 
     public boolean isStudentInCourse(String studentId, String courseId) {
@@ -384,6 +478,76 @@ public class StudentManagerInterface {
                 return students.get(studentId).isInCourse(courses.get(courseId));
             }
         return false;
+    }
+
+    public Object[][] getAllGrades() {
+        ArrayList<Student> studentsTemp = new ArrayList<>();
+        ArrayList<Course> coursesTemp = new ArrayList<>();
+        ArrayList<Pair> pairsTemp = new ArrayList<>();
+        for (Student student : students.getDataAsList()) {
+            for (Grade grade : student.getGradeAsList()) {
+                for (Pair pair : grade.getPoints()) {
+                    studentsTemp.add(student);
+                    coursesTemp.add(grade.getCourse());
+                    pairsTemp.add(pair);
+                }
+            }
+        }
+        Object[][] dataArray = new Object[studentsTemp.size()][4];
+        for (int i=0; i<studentsTemp.size(); i++) {
+            dataArray[i][0] = studentsTemp.get(i).getId();
+            dataArray[i][1] = coursesTemp.get(i).getId();
+            dataArray[i][2] = pairsTemp.get(i).point;
+            dataArray[i][3] = pairsTemp.get(i).coefficient;
+        }
+        return dataArray;
+    }
+
+    public Object[][] getStudentAllGrades(String studentId) {
+        if (students.contain(studentId)) {
+            Student student = students.get(studentId);
+            ArrayList<Course> coursesTemp = new ArrayList<>();
+            ArrayList<Pair> pairsTemp = new ArrayList<>();
+            for (Grade grade : student.getGradeAsList()) {
+                for (Pair pair : grade.getPoints()) {
+                    coursesTemp.add(grade.getCourse());
+                    pairsTemp.add(pair);
+                }
+            }
+            Object[][] dataArray = new Object[coursesTemp.size()][4];
+            for (int i=0; i<coursesTemp.size(); i++) {
+                dataArray[i][0] = student.getId();
+                dataArray[i][1] = coursesTemp.get(i).getId();
+                dataArray[i][2] = pairsTemp.get(i).point;
+                dataArray[i][3] = pairsTemp.get(i).coefficient;
+            }
+            return dataArray;
+        }
+        else {
+            return new Object[0][4];
+        }
+    }
+
+    public Object[][] getStudentAverage(String studentId) {
+        if (students.contain(studentId)) {
+            Student student = students.get(studentId);
+            ArrayList<Grade> gradesTemp = student.getGradeAsList();
+            Object[][] dataArray = new Object[gradesTemp.size()+1][4];
+            dataArray[0][0] = student.getId();
+            dataArray[0][1] = "";
+            dataArray[0][2] = "All";
+            dataArray[0][3] = student.getAllAverage();
+            for (int i=0; i<gradesTemp.size(); i++) {
+                dataArray[i+1][0] = student.getId();
+                dataArray[i+1][1] = gradesTemp.get(i).getCourse().getId();
+                dataArray[i+1][2] = gradesTemp.get(i).getCourse().getName();
+                dataArray[i+1][3] = gradesTemp.get(i).average();
+            }
+            return dataArray;
+        }
+        else {
+            return new Object[0][4];
+        }
     }
 
     public ArrayList<Pair> getStudentGradeInCourse(String studentId, String courseId) {
@@ -400,9 +564,8 @@ public class StudentManagerInterface {
         return 0;
     }
 
-    public void testListLecturer (ArrayList<Lecturer> objs) {
-        for (Person obj : objs) {
-            System.out.println(obj.getEmail());
-        }
+    public static void main(String[] args) {
+        StudentManagerInterface smi = new StudentManagerInterface();
+        smi.createData();
     }
 }

@@ -91,11 +91,11 @@ public class StudentPanel extends JPanel {
         this.toolPanel.add(findByNameButton, GridBag.getGridBagConstraintsFill(0, 8));
         this.toolPanel.add(findByYearOfBirthButton, GridBag.getGridBagConstraintsFill(0, 9));
         this.toolPanel.add(findByEmailButton, GridBag.getGridBagConstraintsFill(0, 10));
-        this.toolPanel.add(lecturerLabel, GridBag.getGridBagConstraintsFill(0, 11));
-        this.toolPanel.add(lecturerIdTextField, GridBag.getGridBagConstraintsFill(1, 11));
+        this.toolPanel.add(lecturerLabel, GridBag.getGridBagConstraintsLeft(0, 11));
+        this.toolPanel.add(lecturerIdTextField, GridBag.getGridBagConstraintsLeft(1, 11));
         this.toolPanel.add(findByLecturerButton, GridBag.getGridBagConstraintsFill(0, 12));
-        this.toolPanel.add(courseLabel, GridBag.getGridBagConstraintsFill(0, 13));
-        this.toolPanel.add(courseIdTextField, GridBag.getGridBagConstraintsFill(1, 13));
+        this.toolPanel.add(courseLabel, GridBag.getGridBagConstraintsLeft(0, 13));
+        this.toolPanel.add(courseIdTextField, GridBag.getGridBagConstraintsLeft(1, 13));
         this.toolPanel.add(findByCourseButton, GridBag.getGridBagConstraintsFill(0, 14));
         
         //load data
@@ -257,6 +257,14 @@ class GridBag {
         c.gridx = gridx;
         c.gridy = gridy;
         c.anchor = GridBagConstraints.WEST;
+        return c;
+    }
+
+    public static GridBagConstraints getGridBagConstraintsRight(int gridx, int gridy) {
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = gridx;
+        c.gridy = gridy;
+        c.anchor = GridBagConstraints.EAST;
         return c;
     }
 

@@ -22,6 +22,14 @@ public class Student extends Person {
         return grades;
     }
 
+    public ArrayList<Grade> getGradeAsList() {
+        ArrayList<Grade> gradesList = new ArrayList<>();
+        for (Course key : this.grades.keySet()) {
+            gradesList.add(grades.get(key));
+        }
+        return gradesList;
+    }
+
     public Grade getGrade(Course course) {
         return this.grades.get(course);
     }
@@ -32,6 +40,13 @@ public class Student extends Person {
 
     public ArrayList<Course> getFinishedCourses() {
         return finishedCourses;
+    }
+
+    public ArrayList<Course> getAllCourse() {
+        ArrayList<Course> courses = new ArrayList<>();
+        courses.addAll(getJoinedCourses());
+        courses.addAll(getFinishedCourses());
+        return courses;
     }
 
     public void joinCourse(Course course) {
@@ -55,13 +70,11 @@ public class Student extends Person {
     }
 
     public void addGrade(Course course, float point, float coefficient) {
-        if (course.getJoinedStudents().contains(this))
-            this.getGrade(course).addPoint(point, coefficient);
+        this.getGrade(course).addPoint(point, coefficient);
     }
 
     public void deleteGrade(Course course, int index) {
-        if (course.getJoinedStudents().contains(this))
-            this.getGrade(course).deletePoint(index);
+        this.getGrade(course).deletePoint(index);
     }
 
     public float getAllAverage() {

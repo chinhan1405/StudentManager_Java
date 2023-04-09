@@ -83,10 +83,9 @@ public class LecturerPanel extends JPanel {
         this.toolPanel.add(findByNameButton, GridBag.getGridBagConstraintsFill(0, 8));
         this.toolPanel.add(findByYearOfBirthButton, GridBag.getGridBagConstraintsFill(0, 9));
         this.toolPanel.add(findByEmailButton, GridBag.getGridBagConstraintsFill(0, 10));
-        this.toolPanel.add(studentLabel, GridBag.getGridBagConstraintsFill(0, 11));
-        this.toolPanel.add(studentLabel, GridBag.getGridBagConstraintsFill(0, 12));
-        this.toolPanel.add(studentIdTextField, GridBag.getGridBagConstraintsFill(1, 12));
-        this.toolPanel.add(findByStudentButton, GridBag.getGridBagConstraintsFill(0, 13));
+        this.toolPanel.add(studentLabel, GridBag.getGridBagConstraintsLeft(0, 11));
+        this.toolPanel.add(studentIdTextField, GridBag.getGridBagConstraintsFill(1, 11));
+        this.toolPanel.add(findByStudentButton, GridBag.getGridBagConstraintsFill(0, 12));
         
         //load data
         this.dataPanel = new JPanel();

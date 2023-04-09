@@ -36,6 +36,7 @@ public class Grade {
             sum += pair.point * pair.coefficient;
             sumCoef += pair.coefficient;
         }
+        if (sumCoef==0) return 0;
         return sum/sumCoef;
     }
 }
