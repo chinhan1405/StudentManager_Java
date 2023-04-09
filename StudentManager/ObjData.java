@@ -1,3 +1,4 @@
+package StudentManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -49,11 +50,6 @@ public abstract class ObjData<T> {
     public void remove(String id) {
         this.data.remove(id);
         decreaseCount();
-    }
-
-    public void update(String id, T obj) {
-        this.remove(id);
-        this.add(id, obj);
     }
 }
 

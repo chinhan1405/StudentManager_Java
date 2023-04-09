@@ -1,3 +1,4 @@
+package StudentManager;
 import java.util.ArrayList;
 
 public class StudentManagerInterface {
@@ -5,7 +6,6 @@ public class StudentManagerInterface {
     private LecturersData lecturers;
     private CoursesData courses;
     private Sqlite sqlite;
-
 
     public StudentManagerInterface() {
         this.students = new StudentsData();
@@ -60,8 +60,16 @@ public class StudentManagerInterface {
 
     public boolean updateStudent(String id, String name, int yearOfBirth, String email) {
         if (students.contain(id)) {
-            Student student = new Student(id, name, yearOfBirth, email);
-            students.update(id, student);
+            Student student = students.get(id);
+            if (!name.equals("")) {
+                student.setName(name);
+            }
+            if (yearOfBirth != 0) {
+                student.setYearOfBirth(yearOfBirth);
+            }
+            if (!email.equals("")) {
+                student.setEmail(email);
+            }
             return true;
         }
         return false;
@@ -86,8 +94,16 @@ public class StudentManagerInterface {
     
     public boolean updateLecturer(String id, String name, int yearOfBirth, String email) {
         if (lecturers.contain(id)) {
-            Lecturer lecturer = new Lecturer(id, name, yearOfBirth, email);
-            lecturers.update(id, lecturer);
+            Lecturer lecturer = lecturers.get(id);
+            if (!name.equals("")) {
+                lecturer.setName(name);
+            }
+            if (yearOfBirth != 0) {
+                lecturer.setYearOfBirth(yearOfBirth);
+            }
+            if (!email.equals("")) {
+                lecturer.setEmail(email);
+            }
             return true;
         }
         return false;
@@ -112,8 +128,14 @@ public class StudentManagerInterface {
 
     public boolean updateCourse(String id, String name, String description) {
         if (courses.contain(id)) {
-            Course course = new Course(id, name, description);
-            courses.update(id, course);
+            Course course = courses.get(id);
+            if (!name.equals("")) {
+                course.setName(name);
+            }
+            
+            if (!description.equals("")) {
+                course.setDescription(description);
+            }
             return true;
         }
         return false;
@@ -175,50 +197,150 @@ public class StudentManagerInterface {
         return false;
     }
 
-    public ArrayList<Student> getAllStudents() {
-        return students.getDataAsList();
+    public Object[][] getAllStudents() {
+        ArrayList<Student> temp = students.getDataAsList();
+        Object[][] dataArray = new Object[temp.size()][4];
+        for (int i=0; i<temp.size(); i++) {
+            dataArray[i][0] = temp.get(i).getId();
+            dataArray[i][1] = temp.get(i).getName();
+            dataArray[i][2] = temp.get(i).getYearOfBirth();
+            dataArray[i][3] = temp.get(i).getEmail();
+        }
+        return dataArray;
     }
 
-    public ArrayList<Student> findStudentByName(String name) {
-        return students.findByName(name);
+    public Object[][] findStudentByName(String name) {
+        ArrayList<Student> temp = students.findByName(name);
+        Object[][] dataArray = new Object[temp.size()][4];
+        for (int i=0; i<temp.size(); i++) {
+            dataArray[i][0] = temp.get(i).getId();
+            dataArray[i][1] = temp.get(i).getName();
+            dataArray[i][2] = temp.get(i).getYearOfBirth();
+            dataArray[i][3] = temp.get(i).getEmail();
+        }
+        return dataArray;
     }
 
-    public ArrayList<Student> findStudentByYearOfBirth(int yearOfBirth) {
-        return students.findByYearOfBirth(yearOfBirth);
+    public Object[][] findStudentByYearOfBirth(int yearOfBirth) {
+        ArrayList<Student> temp = students.findByYearOfBirth(yearOfBirth);
+        Object[][] dataArray = new Object[temp.size()][4];
+        for (int i=0; i<temp.size(); i++) {
+            dataArray[i][0] = temp.get(i).getId();
+            dataArray[i][1] = temp.get(i).getName();
+            dataArray[i][2] = temp.get(i).getYearOfBirth();
+            dataArray[i][3] = temp.get(i).getEmail();
+        }
+        return dataArray;
     }
 
-    public ArrayList<Student> findStudentByEmail(String email) {
-        return students.findByEmail(email);
+    public Object[][] findStudentByEmail(String email) {
+        ArrayList<Student> temp = students.findByEmail(email);
+        Object[][] dataArray = new Object[temp.size()][4];
+        for (int i=0; i<temp.size(); i++) {
+            dataArray[i][0] = temp.get(i).getId();
+            dataArray[i][1] = temp.get(i).getName();
+            dataArray[i][2] = temp.get(i).getYearOfBirth();
+            dataArray[i][3] = temp.get(i).getEmail();
+        }
+        return dataArray;
     }
 
-    public ArrayList<Student> findStudentByLecturer(String lecturerId) {
+    public Object[][] findStudentByLecturer(String lecturerId) {
         if (lecturers.contain(lecturerId)) {
-            return students.findByLecturer(lecturers.get(lecturerId));
+            ArrayList<Student> temp = students.findByLecturer(lecturers.get(lecturerId));
+            Object[][] dataArray = new Object[temp.size()][4];
+            for (int i=0; i<temp.size(); i++) {
+                dataArray[i][0] = temp.get(i).getId();
+                dataArray[i][1] = temp.get(i).getName();
+                dataArray[i][2] = temp.get(i).getYearOfBirth();
+                dataArray[i][3] = temp.get(i).getEmail();
+            }
+            return dataArray;
         }
-        return new ArrayList<>();
+        else {
+            return new Object[0][4];
+        }
+        
     }
 
-    public ArrayList<Lecturer> getAllLecturers() {
-        return lecturers.getDataAsList();
+    public Object[][] findStudentByCourse(String courseId) {
+        if (courses.contain(courseId)) {
+            ArrayList<Student> temp = courses.get(courseId).getJoinedStudents();
+            Object[][] dataArray = new Object[temp.size()][4];
+            for (int i=0; i<temp.size(); i++) {
+                dataArray[i][0] = temp.get(i).getId();
+                dataArray[i][1] = temp.get(i).getName();
+                dataArray[i][2] = temp.get(i).getYearOfBirth();
+                dataArray[i][3] = temp.get(i).getEmail();
+            }
+            return dataArray;
+        }
+        else {
+            return new Object[0][4];
+        }
     }
 
-    public ArrayList<Lecturer> findLecturerByName(String name) {
-        return lecturers.findByName(name);
+    public Object[][] getAllLecturers() {
+        ArrayList<Lecturer> temp = lecturers.getDataAsList();
+        Object[][] dataArray = new Object[temp.size()][4];
+        for (int i=0; i<temp.size(); i++) {
+            dataArray[i][0] = temp.get(i).getId();
+            dataArray[i][1] = temp.get(i).getName();
+            dataArray[i][2] = temp.get(i).getYearOfBirth();
+            dataArray[i][3] = temp.get(i).getEmail();
+        }
+        return dataArray;
     }
 
-    public ArrayList<Lecturer> findLecturerByYearOfBirth(int yearOfBirth) {
-        return lecturers.findByYearOfBirth(yearOfBirth);
+    public Object[][] findLecturerByName(String name) {
+        ArrayList<Lecturer> temp = lecturers.findByName(name);
+        Object[][] dataArray = new Object[temp.size()][4];
+        for (int i=0; i<temp.size(); i++) {
+            dataArray[i][0] = temp.get(i).getId();
+            dataArray[i][1] = temp.get(i).getName();
+            dataArray[i][2] = temp.get(i).getYearOfBirth();
+            dataArray[i][3] = temp.get(i).getEmail();
+        }
+        return dataArray;
     }
 
-    public ArrayList<Lecturer> findLecturerByEmail(String email) {
-        return lecturers.findByEmail(email);
+    public Object[][] findLecturerByYearOfBirth(int yearOfBirth) {
+        ArrayList<Lecturer> temp = lecturers.findByYearOfBirth(yearOfBirth);
+        Object[][] dataArray = new Object[temp.size()][4];
+        for (int i=0; i<temp.size(); i++) {
+            dataArray[i][0] = temp.get(i).getId();
+            dataArray[i][1] = temp.get(i).getName();
+            dataArray[i][2] = temp.get(i).getYearOfBirth();
+            dataArray[i][3] = temp.get(i).getEmail();
+        }
+        return dataArray;
     }
 
-    public ArrayList<Lecturer> findLecturerByStudent(String studentId) {
+    public Object[][] findLecturerByEmail(String email) {
+        ArrayList<Lecturer> temp = lecturers.findByEmail(email);
+        Object[][] dataArray = new Object[temp.size()][4];
+        for (int i=0; i<temp.size(); i++) {
+            dataArray[i][0] = temp.get(i).getId();
+            dataArray[i][1] = temp.get(i).getName();
+            dataArray[i][2] = temp.get(i).getYearOfBirth();
+            dataArray[i][3] = temp.get(i).getEmail();
+        }
+        return dataArray;
+    }
+
+    public Object[][] findLecturerByStudent(String studentId) {
         if (students.contain(studentId)) {
-            return lecturers.findByStudent(students.get(studentId));
+            ArrayList<Lecturer> temp = lecturers.findByStudent(students.get(studentId));
+            Object[][] dataArray = new Object[temp.size()][4];
+            for (int i=0; i<temp.size(); i++) {
+                dataArray[i][0] = temp.get(i).getId();
+                dataArray[i][1] = temp.get(i).getName();
+                dataArray[i][2] = temp.get(i).getYearOfBirth();
+                dataArray[i][3] = temp.get(i).getEmail();
+            }
+            return dataArray;
         }
-        return new ArrayList<>();
+        return new Object[0][4];
     }
 
     public ArrayList<Course> getAllCourses() {
@@ -282,21 +404,5 @@ public class StudentManagerInterface {
         for (Person obj : objs) {
             System.out.println(obj.getEmail());
         }
-    }
-
-    public static void main(String[] args) {
-        StudentManagerInterface sm = new StudentManagerInterface();
-        sm.createData();
-        // sm.addStudent("123", "Hoang Chi Nhan", 2003, "hoangchinhankl@gmail.com");
-        // sm.addStudent("124", "Tran Dai Thanh", 2003, "gbvietnamese@gmail.com");
-        // sm.addCourse("123", "Math", "Logic and Numbers");
-        // sm.addCourse("124", "Physics", "Magiccc");
-        // sm.addLecturer("123", "Jack", 1990, "jack@gmail.com");
-        // sm.addLecturer("124", "Adam", 1988, "adam@gmail.com");
-        // sm.setNewLecturerToCourse("123", "123");
-        // sm.enrollNewCourseForStudent("123", "123");
-        // sm.addGradeForStudent("123", "123", 9f, 0.3f);
-        // sm.addGradeForStudent("123", "123", 7f, 0.7f);
-        // sm.testListLecturer(sm.getAllLecturers());
     }
 }

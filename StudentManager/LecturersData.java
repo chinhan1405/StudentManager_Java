@@ -1,3 +1,4 @@
+package StudentManager;
 import java.util.ArrayList;
 
 public class LecturersData extends ObjData<Lecturer> implements IPeopleData<Lecturer> {

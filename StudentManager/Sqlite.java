@@ -1,3 +1,4 @@
+package StudentManager;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -352,31 +353,5 @@ public class Sqlite {
         catch (SQLException e) {
             return false;
         }
-    }
-
-
-
-    public static void main(String[] args) throws SQLException {
-        StudentManagerInterface sm = new StudentManagerInterface();
-        sm.loadData();
-        
-
-        for (Student st : sm.getAllStudents()) {
-            System.out.println(st.getName());
-        }
-        for (Lecturer le : sm.getAllLecturers()) {
-            System.out.println(le.getName());
-        }
-        for (Course co : sm.getAllCourses()) {
-            for (Student student : co.getJoinedStudents()) {
-                System.out.println(student.getEmail());
-            }
-        }
-
-        for (Student student : sm.getAllStudents()) {
-            System.out.println(student.getAllAverage());
-        }
-        System.out.println(sm.getCourse("123").isFinished());
-        sm.storeData();
     }
 }
