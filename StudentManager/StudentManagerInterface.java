@@ -27,6 +27,7 @@ public class StudentManagerInterface {
 
     public boolean storeData() {
         boolean noError = true;
+        noError = noError && createData();
         noError = noError && sqlite.storeStudentsInformation();
         noError = noError && sqlite.storeLecturersInformation();
         noError = noError && sqlite.storeCoursesInformation();
@@ -175,7 +176,7 @@ public class StudentManagerInterface {
 
     public boolean addGradeForStudent(String studentId, String courseId, float point, float coefficient) {
         if (students.contain(studentId) && courses.contain(courseId)) {
-            Student student = students.get(courseId);
+            Student student = students.get(studentId);
             Course course = courses.get(courseId);
             if (student.isInCourse(course)) {
                 student.addGrade(course, point, coefficient);
@@ -189,7 +190,7 @@ public class StudentManagerInterface {
         if (students.contain(studentId) && courses.contain(courseId)) {
             Student student = students.get(courseId);
             Course course = courses.get(courseId);
-            if (student.isInCourse(course)) {
+            if (student.isInCourse(course) && student.getGradeAsList().size() > index && index >= 0) {
                 student.deleteGrade(course, index);
                 return true;
             }

@@ -105,7 +105,9 @@ public class CoursePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    smi.addCourse(idTextField.getText(), nameTextField.getText(), descriptionTextField.getText());
+                    if (smi.addCourse(idTextField.getText(), nameTextField.getText(), descriptionTextField.getText())) {
+                        System.out.println("Added a course.");
+                    }
                     updateAllCourses();
                 }
                 catch (Exception ex) {
@@ -117,7 +119,9 @@ public class CoursePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    smi.removeCourse(idTextField.getText());
+                    if (smi.removeCourse(idTextField.getText())) {
+                        System.out.println("Removed a course.");
+                    }
                     updateAllCourses();
                 }
                 catch (Exception ex) {
@@ -129,7 +133,9 @@ public class CoursePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    smi.updateCourse(idTextField.getText(), nameTextField.getText(), descriptionTextField.getText());
+                    if (smi.updateCourse(idTextField.getText(), nameTextField.getText(), descriptionTextField.getText())) {
+                        System.out.println("Updated a course.");
+                    }
                     updateAllCourses();
                 }
                 catch (Exception ex) {
@@ -169,7 +175,9 @@ public class CoursePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    smi.setNewLecturerToCourse(lecturerIdTextField.getText(), idTextField.getText());
+                    if (smi.setNewLecturerToCourse(lecturerIdTextField.getText(), idTextField.getText())) {
+                        System.out.println("Set a lecturer to a course.");
+                    }
                     updateAllCourses();
                 }
                 catch (Exception ex) {
@@ -192,7 +200,9 @@ public class CoursePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    smi.finishCourse(idTextField.getText());
+                    if (smi.finishCourse(idTextField.getText())) {
+                        System.out.println("Finished a course.");
+                    }
                     updateAllCourses();
                 }
                 catch (Exception ex) {

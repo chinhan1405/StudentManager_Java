@@ -69,7 +69,12 @@ public class MainFrame extends JFrame {
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                smi.storeData();
+                if (smi.storeData()) {
+                    System.out.println("Successfully save the data.");
+                }
+                else {
+                    System.out.println("Failed to save the data.");
+                }
                 System.out.println("Closing the application...");
                 dispose();
             }
@@ -114,7 +119,13 @@ public class MainFrame extends JFrame {
 
     public static void main(String[] args) {
         StudentManagerInterface smi = new StudentManagerInterface();
-        smi.loadData();
+        System.out.println("Loading data ...");
+        if (smi.loadData()) {
+            System.out.println("Successfully load the data.");
+        }
+        else {
+            System.out.println("Faild to load the data.");
+        }
         MainFrame frame = new MainFrame(smi);
         frame.setVisible(true);
     }

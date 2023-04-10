@@ -71,7 +71,6 @@ public class Sqlite {
     public boolean createDatabase() {
         for (String name : queryColumn("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;", "name")) {
             executeNoQuery("DROP TABLE IF EXISTS " + name + ";");
-            System.out.println("Dropped table " + name);
         }
         String creatingStudentsTableStatement = "CREATE TABLE IF NOT EXISTS students (\n"  
         + " id text PRIMARY KEY,\n"  

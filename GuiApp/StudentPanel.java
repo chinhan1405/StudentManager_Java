@@ -113,7 +113,9 @@ public class StudentPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     int yearOfBirth = Integer.parseInt(yearOfBirthTextField.getText());
-                    smi.addStudent(idTextField.getText(), nameTextField.getText(), yearOfBirth, emailTextField.getText());
+                    if (smi.addStudent(idTextField.getText(), nameTextField.getText(), yearOfBirth, emailTextField.getText())) {
+                        System.out.println("Added a student.");
+                    }
                     updateAllStudents();
                 }
                 catch (NumberFormatException ne) {
@@ -125,7 +127,9 @@ public class StudentPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    smi.removeStudent(idTextField.getText());
+                    if (smi.removeStudent(idTextField.getText())) {
+                        System.out.println("Removed a student.");
+                    }
                     updateAllStudents();
                 }
                 catch (Exception ex) {
@@ -141,7 +145,9 @@ public class StudentPanel extends JPanel {
                     if (!yearOfBirthTextField.getText().equals("")) {
                         yearOfBirth = Integer.parseInt(yearOfBirthTextField.getText());
                     }
-                    smi.updateStudent(idTextField.getText(), nameTextField.getText(), yearOfBirth, emailTextField.getText());
+                    if (smi.updateStudent(idTextField.getText(), nameTextField.getText(), yearOfBirth, emailTextField.getText())) {
+                        System.out.println("Updated a student.");
+                    }
                     updateAllStudents();
                 }
                 catch (NumberFormatException ne) {

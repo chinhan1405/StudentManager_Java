@@ -102,7 +102,9 @@ public class LecturerPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     int yearOfBirth = Integer.parseInt(yearOfBirthTextField.getText());
-                    smi.addLecturer(idTextField.getText(), nameTextField.getText(), yearOfBirth, emailTextField.getText());
+                    if (smi.addLecturer(idTextField.getText(), nameTextField.getText(), yearOfBirth, emailTextField.getText())) {
+                        System.out.println("Added a lecturer.");
+                    }
                     updateAllLecturers();
                 }
                 catch (NumberFormatException ne) {
@@ -114,7 +116,9 @@ public class LecturerPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    smi.removeLecturer(idTextField.getText());
+                    if (smi.removeLecturer(idTextField.getText())) {
+                        System.out.println("Removed a lecturer.");
+                    }
                     updateAllLecturers();
                 }
                 catch (Exception ex) {
@@ -130,7 +134,9 @@ public class LecturerPanel extends JPanel {
                     if (!yearOfBirthTextField.getText().equals("")) {
                         yearOfBirth = Integer.parseInt(yearOfBirthTextField.getText());
                     }
-                    smi.updateLecturer(idTextField.getText(), nameTextField.getText(), yearOfBirth, emailTextField.getText());
+                    if (smi.updateLecturer(idTextField.getText(), nameTextField.getText(), yearOfBirth, emailTextField.getText())) {
+                        System.out.println("Updated a lecturer.");
+                    }
                     updateAllLecturers();
                 }
                 catch (NumberFormatException ne) {

@@ -90,7 +90,9 @@ public class GradePanel extends JPanel {
                 try {
                     float point = Float.parseFloat(pointTextField.getText());
                     float coefficient = Float.parseFloat(coefficientTextField.getText());
-                    smi.addGradeForStudent(studentIdTextField.getText(), courseIdTextField.getText(), point, coefficient);
+                    if (smi.addGradeForStudent(studentIdTextField.getText(), courseIdTextField.getText(), point, coefficient)) {
+                        System.out.println("Added a grade.");
+                    }
                     updateAllGrades();
                 }
                 catch (NumberFormatException ne) {
@@ -104,7 +106,9 @@ public class GradePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     int index = Integer.parseInt(pointTextField.getText());
-                    smi.deleteGradeForStudent(studentIdTextField.getText(), courseIdTextField.getText(), index);
+                    if (smi.deleteGradeForStudent(studentIdTextField.getText(), courseIdTextField.getText(), index)) {
+                        System.out.println("Deleted a grade.");
+                    }
                     updateAllGrades();
                 }
                 catch (NumberFormatException ne) {

@@ -27,6 +27,7 @@ public class EnrolledCoursePanel extends JPanel {
     private JTextField studentIdTextField;
     private JTextField courseIdTextField;
     private JButton enrollButton;
+    private JButton removeButton;
     private JButton findAllButton;
     private JButton findByStudentButton;
     private JButton findByCourseButton;
@@ -45,6 +46,7 @@ public class EnrolledCoursePanel extends JPanel {
         this.studentIdTextField = new DefaultTextField("", 20);
         this.courseIdTextField = new DefaultTextField("", 20);
         this.enrollButton = new DefaultButton("ENROLL");
+        this.removeButton = new DefaultButton("REMOVE");
         this.findAllButton = new DefaultButton("SHOW ALL");
         this.findByStudentButton = new DefaultButton("FIND BY STUDENT");
         this.findByCourseButton = new DefaultButton("FIND BY COURSE");
@@ -53,9 +55,10 @@ public class EnrolledCoursePanel extends JPanel {
         this.toolPanel.add(courseLabel, GridBag.getGridBagConstraintsLeft(0, 1));
         this.toolPanel.add(courseIdTextField, GridBag.getGridBagConstraintsLeft(1, 1));
         this.toolPanel.add(enrollButton, GridBag.getGridBagConstraintsFill(0, 2));
-        this.toolPanel.add(findAllButton, GridBag.getGridBagConstraintsFill(0, 3));
-        this.toolPanel.add(findByStudentButton, GridBag.getGridBagConstraintsFill(0, 4));
-        this.toolPanel.add(findByCourseButton, GridBag.getGridBagConstraintsFill(0, 5));
+        this.toolPanel.add(removeButton, GridBag.getGridBagConstraintsFill(0, 3));
+        this.toolPanel.add(findAllButton, GridBag.getGridBagConstraintsFill(0, 4));
+        this.toolPanel.add(findByStudentButton, GridBag.getGridBagConstraintsFill(0, 5));
+        this.toolPanel.add(findByCourseButton, GridBag.getGridBagConstraintsFill(0, 6));
 
         //load data
         this.dataPanel = new JPanel();
@@ -71,7 +74,23 @@ public class EnrolledCoursePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    smi.enrollNewCourseForStudent(studentIdTextField.getText(), courseIdTextField.getText());
+                    if (smi.enrollNewCourseForStudent(studentIdTextField.getText(), courseIdTextField.getText())) {
+                        System.out.println("Enrolled a student.");
+                    }
+                    updateAllEnrolledCourses();
+                }
+                catch (NumberFormatException ne) {
+                    studentIdTextField.setText("Error somewhere");
+                }
+            }
+        });
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (smi.removeStudentfromCourse(studentIdTextField.getText(), courseIdTextField.getText())) {
+                        System.out.println("Removed a student from a course.");
+                    }
                     updateAllEnrolledCourses();
                 }
                 catch (NumberFormatException ne) {
