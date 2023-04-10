@@ -11,7 +11,7 @@ public class StudentManagerInterface {
         this.students = new StudentsData();
         this.lecturers = new LecturersData();
         this.courses = new CoursesData();
-        this.sqlite = new Sqlite("jdbc:sqlite:test.db", students, lecturers, courses);
+        this.sqlite = new Sqlite("jdbc:sqlite:studentmanagerdata.db", students, lecturers, courses);
     }
 
     public boolean loadData() {
@@ -123,6 +123,7 @@ public class StudentManagerInterface {
 
     public boolean removeCourse(String id) {
         if (courses.contain(id)) {
+            courses.get(id).makeClean();
             courses.remove(id);
             return true;
         }

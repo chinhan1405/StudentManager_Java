@@ -126,15 +126,15 @@ public class StudentPanel extends JPanel {
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
+                //try {
                     if (smi.removeStudent(idTextField.getText())) {
                         System.out.println("Removed a student.");
                     }
                     updateAllStudents();
-                }
-                catch (Exception ex) {
-                    nameTextField.setText("Check the ID again");
-                }
+                // }
+                // catch (Exception ex) {
+                //     nameTextField.setText("Check the ID again");
+                // }
             }
         });
         updateButton.addActionListener(new ActionListener() {

@@ -54,6 +54,21 @@ public class Course {
         return finished;
     }
 
+    public void makeClean() {
+        if (finished) {
+            getLecturer().getFinishedCourses().remove(this);
+            for (Student student : getJoinedStudents()) {
+                student.getFinishedCourses().remove(this);
+            }
+        }
+        else {
+            getLecturer().getJoinedCourses().remove(this);
+            for (Student student : getJoinedStudents()) {
+                student.getJoinedCourses().remove(this);
+            }
+        }
+    }
+
     public void finishCourse() {
         this.finished = true;
         this.lecturer.getJoinedCourses().remove(this);

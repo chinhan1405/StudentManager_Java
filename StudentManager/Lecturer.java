@@ -18,11 +18,9 @@ public class Lecturer extends Person{
 
     public void exitAllCourse() {
         for (Course course : getJoinedCourses()) {
-            this.joinedCourses.remove(course);
             course.setLecturer(new Lecturer());
         }
         for (Course course : getFinishedCourses()) {
-            this.joinedCourses.remove(course);
             course.setLecturer(new Lecturer());
         }
     }

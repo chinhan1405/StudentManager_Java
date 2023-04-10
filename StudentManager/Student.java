@@ -67,12 +67,10 @@ public class Student extends Person {
 
     public void exitAllCourse() {
         for (Course course : getJoinedCourses()) {
-            this.joinedCourses.remove(course);
             course.getJoinedStudents().remove(this);
             grades.remove(course);
         }
         for (Course course : getFinishedCourses()) {
-            this.joinedCourses.remove(course);
             course.getJoinedStudents().remove(this);
             grades.remove(course);
         }
