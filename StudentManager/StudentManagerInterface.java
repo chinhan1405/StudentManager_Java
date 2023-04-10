@@ -53,6 +53,7 @@ public class StudentManagerInterface {
 
     public boolean removeStudent(String id) {
         if (students.contain(id)) {
+            students.get(id).exitAllCourse();
             students.remove(id);
             return true;
         }
@@ -87,6 +88,7 @@ public class StudentManagerInterface {
 
     public boolean removeLecturer(String id) {
         if (lecturers.contain(id)) {
+            lecturers.get(id).exitAllCourse();
             lecturers.remove(id);
             return true;
         }
