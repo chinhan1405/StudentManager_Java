@@ -1,5 +1,5 @@
 package StudentManager;
-public abstract class Person {
+public class Person {
     private String id;
     private String name;
     private int yearOfBirth;
