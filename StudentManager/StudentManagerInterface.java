@@ -88,7 +88,7 @@ public class StudentManagerInterface {
 
     public boolean removeLecturer(String id) {
         if (lecturers.contain(id)) {
-            lecturers.get(id).exitAllCourse();
+            lecturers.get(id).exitAllCourses();
             lecturers.remove(id);
             return true;
         }
@@ -193,7 +193,7 @@ public class StudentManagerInterface {
         if (students.contain(studentId) && courses.contain(courseId)) {
             Student student = students.get(courseId);
             Course course = courses.get(courseId);
-            if (student.isInCourse(course) && student.getGradeAsList().size() > index && index >= 0) {
+            if (student.isInCourse(course) && student.getGradesAsList().size() > index && index >= 0) {
                 student.deleteGrade(course, index);
                 return true;
             }
@@ -489,7 +489,7 @@ public class StudentManagerInterface {
         ArrayList<Course> coursesTemp = new ArrayList<>();
         ArrayList<Pair> pairsTemp = new ArrayList<>();
         for (Student student : students.getDataAsList()) {
-            for (Grade grade : student.getGradeAsList()) {
+            for (Grade grade : student.getGradesAsList()) {
                 for (Pair pair : grade.getPoints()) {
                     studentsTemp.add(student);
                     coursesTemp.add(grade.getCourse());
@@ -512,7 +512,7 @@ public class StudentManagerInterface {
             Student student = students.get(studentId);
             ArrayList<Course> coursesTemp = new ArrayList<>();
             ArrayList<Pair> pairsTemp = new ArrayList<>();
-            for (Grade grade : student.getGradeAsList()) {
+            for (Grade grade : student.getGradesAsList()) {
                 for (Pair pair : grade.getPoints()) {
                     coursesTemp.add(grade.getCourse());
                     pairsTemp.add(pair);
@@ -535,7 +535,7 @@ public class StudentManagerInterface {
     public Object[][] getStudentAverage(String studentId) {
         if (students.contain(studentId)) {
             Student student = students.get(studentId);
-            ArrayList<Grade> gradesTemp = student.getGradeAsList();
+            ArrayList<Grade> gradesTemp = student.getGradesAsList();
             Object[][] dataArray = new Object[gradesTemp.size()+1][4];
             dataArray[0][0] = student.getId();
             dataArray[0][1] = "";

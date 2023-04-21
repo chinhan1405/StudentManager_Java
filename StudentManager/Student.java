@@ -22,7 +22,7 @@ public class Student extends Person {
         return grades;
     }
 
-    public ArrayList<Grade> getGradeAsList() {
+    public ArrayList<Grade> getGradesAsList() {
         ArrayList<Grade> gradesList = new ArrayList<>();
         for (Course key : this.grades.keySet()) {
             gradesList.add(grades.get(key));

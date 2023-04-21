@@ -34,11 +34,11 @@ public abstract class ObjData<T> {
         return count;
     }
 
-    public void increaseCount() {
+    private void increaseCount() {
         this.count++;
     }
 
-    public void decreaseCount() {
+    private void decreaseCount() {
         this.count--;
     }
 
@@ -51,10 +51,4 @@ public abstract class ObjData<T> {
         this.data.remove(id);
         decreaseCount();
     }
-}
-
-interface IPeopleData<T> {
-    public ArrayList<T> findByName(String name);
-    public ArrayList<T> findByYearOfBirth(int yearOfBirth);
-    public ArrayList<T> findByEmail(String email);
 }

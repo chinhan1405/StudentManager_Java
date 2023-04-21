@@ -16,7 +16,7 @@ public class Lecturer extends Person{
         this("", "", 0, "");
     }
 
-    public void exitAllCourse() {
+    public void exitAllCourses() {
         for (Course course : getJoinedCourses()) {
             course.setLecturer(new Lecturer());
         }
@@ -31,12 +31,5 @@ public class Lecturer extends Person{
 
     public ArrayList<Course> getFinishedCourses() {
         return finishedCourses;
-    }
-
-    public void joinCourse(Course course) {
-        if (!this.joinedCourses.contains(course)) {
-            this.joinedCourses.add(course);
-            course.setLecturer(this);
-        }
     }
 }

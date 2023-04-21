@@ -1,7 +1,7 @@
 package StudentManager;
 import java.util.ArrayList;
 
-public class StudentsData extends ObjData<Student> implements IPeopleData<Student>{
+public class StudentsData extends ObjData<Student> {
 
     public ArrayList<Student> findByName(String name) {
         ArrayList<Student> students = new ArrayList<>();
